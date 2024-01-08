@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <head>
+        <a href="https://fonts.googleapis.com/css?family=Open+Sans:600,700" rel="stylesheet"></a> 
+        <title>Simple Calculator</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="container">
+            <div id="calculator">
+                <div id="result">
+                    <div id="history"><p id="history-value"></p></div>
+                    <div id="output"><p id="output-value"></p></div>
+                </div>
+                <div id="keyboard">
+                    <button class="operator" id="clear">C</button>
+                    <button class="operator" id="backspace">CE</button>
+                    <button class="operator" id="%">%</button>
+                    <button class="operator" id="/">&#247;</button>
+                    <button class="number" id="7">7</button>
+                    <button class="number" id="8">8</button>
+                    <button class="number" id="9">9</button>
+                    <button class="operator" id="*">&times;</button>
+                    <button class="number" id="4">4</button>
+                    <button class="number" id="5">5</button>
+                    <button class="number" id="6">6</button>
+                    <button class="operator" id="-">-</button>
+                    <button class="number" id="1">1</button>
+                    <button class="number" id="2">2</button>
+                    <button class="number" id="3">3</button>
+                    <button class="operator" id="+">+</button>
+                    <button class="empty" id="empty"></button>
+                    <button class="number" id="0">0</button>
+                    <button class="empty" id="empty"></button>
+                    <button class="operator" id="=">=</button>
+                </div>
+            </div>
+        </div>
+
+<!-- <h1>Q1; What type of Css is generally recommended for designing large web pages?</h1>
+<button id="opt1">internal</button>
+<button onclick="correct()" id="opt3">External</button>
+<button id="opt1">inline</button>
+<button id="opt1">None of above</button>
+
+<button>Next</button> -->
+<!-- <div class="main">
+     <form action="#">
+        <input id="input1" type="text" required placeholder="Username">
+        <input id="input2" type="text" required placeholder="Password">
+    </form>
+    <button onclick="getinput()">login</button>
+</div> -->
+    <script>
+        
+        function getHistory(){
+    return document.getElementById("history-value").innerText;
+}
+function printHistory(num){
+    document.getElementById("history-value").innerText=num;
+}
+function getOutput(){
+    return document.getElementById("output-value").innerText;
+}
+function printOutput(num){
+    if(num==""){
+        document.getElementById("output-value").innerText=num;
+    }
+    else{
+        document.getElementById("output-value").innerText=getFormattedNumber(num);
+    }    
+}
+function getFormattedNumber(num){
+    if(num=="-"){
+        return "";
+    }
+    var n = Number(num);
+    var value = n.toLocaleString("en");
+    return value;
+}
+function reverseNumberFormat(num){
+    return Number(num.replace(/,/g,''));
+}
+var operator = document.getElementsByClassName("operator");
+for(var i =0;i<operator.length;i++){
+    operator[i].addEventListener('click',function(){
+        if(this.id=="clear"){
+            printHistory("");
+            printOutput("");
+        }
+        else if(this.id=="backspace"){
+            var output=reverseNumberFormat(getOutput()).toString();
+            if(output){//if output has a value
+                output= output.substr(0,output.length-1);
+                printOutput(output);
+            }
+        }
+        else{
+            var output=getOutput();
+            var history=getHistory();
+            if(output==""&&history!=""){
+                if(isNaN(history[history.length-1])){
+                    history= history.substr(0,history.length-1);
+                }
+            }
+            if(output!="" || history!=""){
+                output= output==""?output:reverseNumberFormat(output);
+                history=history+output;
+                if(this.id=="="){
+                    var result=eval(history);
+                    printOutput(result);
+                    printHistory("");
+                }
+                else{
+                    history=history+this.id;
+                    printHistory(history);
+                    printOutput("");
+                }
+            }
+        }
+        
+    });
+}
+var number = document.getElementsByClassName("number");
+for(var i =0;i<number.length;i++){
+    number[i].addEventListener('click',function(){
+        var output=reverseNumberFormat(getOutput());
+        if(output!=NaN){ //if output is a number
+            output=output+this.id;
+            printOutput(output);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+// var num = prompt("enter your name");
+
+// alert("your name is hassan")
+// var mcqs1= document.getElementById("opt1")
+// var mcqs2 = document.getElementById("opt2")
+// var mcqs3 = document.getElementById("opt3")
+// var mcqs4 = document.getElementById("opt4")
+
+
+// var inp1 = document.getElementById("input1")
+// var inp2 = document.getElementById("input2")
+
+// var arr = [inp1, inp2]
+
+// function getinput(){
+
+//     for(var i=0; i<arr.length; i++){
+//         console.log(arr[i].value)
+//     }
+// }
+// function click(){
+//     alert("correct") 
+// }
+
+// var originalNum = 90;
+//  originalNum = originalNum + 10;
+//  alert("originalNum")
+// var numberOfCats = prompt("How many cats?");
+//  var tooManyCats = numberOfCats + 1;
+//  alert("2")
+// var x = prompt("Where does the Pope live?");
+//  if (x === "Vatican") {
+//  alert("Correct!");
+//  }
+// else {
+//  alert("Wrong answer");
+//  }
+// var cities = ["Atlanta", "Baltimore", "Chicago", "Denver", "Los Angeles", "Seattle"];
+// console.log("Welcome to " + cities[3,4,5]);
+// pets[3] = "lizard";
+//  pets[4] = "fish";
+//  pets[5] = "gerbil";
+//  pets[6] = "snake";
+
+//  pets.pop(3);
+
+// if (cityToCheck === cleanestCities[0]) {
+//  alert("It's one of the cleanest cities");
+//  }
+//  else if (cityToCheck === cleanestCities[1]) {
+//  alert("It's one of the cleanest cities");
+//  }
+
+//  else {
+//  alert("It's not on the list");
+//  }
+
+//  for (var i = 0; i <= 4; i++) {
+//  if (cityToCheck === cleanestCities[i]) {
+//  alert("It's one of the cleanest cities");
+//  }
+//  }
+// program to display text 5 times
+// const n = 5;
+
+// // looping from i = 1 to 5
+// for (let i = 1; i <= n; i++) {
+//     console.log(`I love JavaScript.`);
+// }
+
+// program to display numbers from 1 to 5
+// const n = 5;
+
+// // looping from i = 1 to 5
+// // in each iteration, i is increased by 1
+// for (let i = 1; i <= n; i++) {
+//     console.log(i);     // printing the value of i
+// }
+
+// program to add two numbers
+// declaring a function
+// function add(a, b) {
+//     return a + b;
+// }
+
+// // // take input from the user
+// let number1 = parseFloat(prompt("Enter first number: "));
+// let number2 = parseFloat(prompt("Enter second number: "));
+
+// // calling function
+// let result = add(number1,number2);
+
+// // display the result
+// alert ("The sum is " + result);
+
+// function greet() {
+//     a = "hello"
+// }
+
+// greet();
+
+// console.log(a); // hello
+
+
+// let a = "hello"
+
+// function greet(){
+//     a = 3
+// }
+// console.log(a);
+// greet();
+// console.log(a);
+
+// function greeting() {
+//   console.log("Nice to meet you!");
+// }
+
+// // returns the name of the greeting() function
+// console.log(greeting.name);
+
+// // // Output: greeting
+
+// // const person = { name: 'John', age: 20 };
+// // console.log(typeof person);
+  
+// const person = { 
+//     name: 'John', 
+//     fathername: "thomas",
+//     age: 20, 
+//     worth: 4000,
+
+
+// };
+
+// // accessing property
+// console.log(person.name);
+// console.log(person.fathername);
+// console.log(person.age);
+// console.log(person.worth);
+
+// var num = prompt("enter the number")
+
+// switch (0%2 === 0) {
+//     case 1 (0%2 === 2):
+//         alert("even")
+//         break;
+
+//     default:
+//         alert("odd")
+//         break;
+// }
+    </script>
+</body>
+</html>
